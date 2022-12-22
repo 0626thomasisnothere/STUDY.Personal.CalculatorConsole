@@ -1,6 +1,4 @@
-﻿using System;
-using CalculatorLibrary;
-using System.Diagnostics;
+﻿using CalculatorLibrary;
 namespace CalculatorProgram
 {
     class Program
