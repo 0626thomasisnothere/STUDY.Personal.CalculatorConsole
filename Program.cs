@@ -4,35 +4,89 @@
     {
         static void Main(string[] args)
         {
+            var cal = new Calculator();
             bool endApp = false;
+            int attempts = 0;
             // Display title as the C# console calculator app.
             Console.WriteLine("Console Calculator in C#\r");
             Console.WriteLine("------------------------\n");
 
             while (!endApp)
             {
-                // Declare variables and set to empty.
-                List<double> numInputs = new List<double> { };
+                // Declare variables
+                List<double> numInputs = new List<double> { };                
                 string numInput = "";
-                double result = 0;
-                int userDigit;
+                double result = 0;                
+                int userDigit;                
                 string userInput;
                 double cleanNum = 0;
 
                 // Ask the user to choose an operator.
+                if (cal.CountResultsList() > 0)
+                {
+                    Console.WriteLine("Your list of past results: " + cal.ResultsList);
 
-                Console.WriteLine("How many digits you want to enter?");
+                    Console.Write("Do you want to clear it? (y/n): ");
+
+                    userInput = Console.ReadLine();
+
+                    if (userInput == "y")
+                    {
+                        cal.ClearResult();
+                    }
+                }
+
+                Console.Write("How many digits you want to enter?: ");                
 
                 userInput = Console.ReadLine();
-                    
-                while(!int.TryParse(userInput, out userDigit))
+
+                while (!int.TryParse(userInput, out userDigit))
                 {
                     Console.Write("Invalid input. Please try again:");
                     userInput = Console.ReadLine();
                 }
+
+                if (cal.CountResultsList() > 0)
+                {
+                    Console.WriteLine("Do you want to use number from past result to perform next calculation? ");
+                    Console.Write("The picked number will be counted as your first digit (y/n): ");
+
+                    userInput = Console.ReadLine();
+
+                    switch (userInput)
+                    {
+                        case "y":                           
+                            do
+                            {
+                                Console.Write("Pick your past result number from the list: ");
+
+                                numInput = Console.ReadLine();
+
+                                if (numInput != null)
+                                {
+                                    cleanNum = cal.GetResultFromList(numInput);
+
+                                    if (!double.IsNaN(cleanNum))
+                                    {
+                                        numInputs.Add(cleanNum);
+                                    }
+                                }                               
+
+                                
+                            } while (double.IsNaN(cleanNum));
+                            break;
+                        case "n":
+                            break;
+                        default:
+                            Console.Write("Invalid input please try again");
+                            userInput = Console.ReadLine();
+                            break;
+                    }
+                }             
+                    
                 if (userDigit > 1)
                 {
-                    Console.WriteLine("Choose an option from the following list:");
+                    Console.WriteLine("\nChoose an option from the following list:");
                     Console.WriteLine("\ta - Add");
                     Console.WriteLine("\ts - Subtract");
                     Console.WriteLine("\tm - Multiply");
@@ -52,16 +106,23 @@
 
 
                 string menu = Console.ReadLine();
+
                 while (menu == null || userDigit > 2 && menu == "p")
                 {
                     Console.Write("Invalid option picked. Please try again:");
                     menu = Console.ReadLine();
                 }
 
+                if (numInputs.Count > 0)
+                {
+                    userDigit -= 1;
+
+                }
                 if (userDigit == 1)
                 {
                     // Ask the user to type the first number.
                     Console.Write("Type a number, and then press Enter: ");
+
                     numInput = Console.ReadLine();
 
 
@@ -70,14 +131,20 @@
                         Console.Write("This is not valid input. Please enter an integer value: ");
                         numInput = Console.ReadLine();
                     }
+
+                    if (numInputs.Count > 0)
+                    {
+                        numInputs.Add(cleanNum);
+                    }                    
                 }
                 else
                 {
                     for (int i = 0; i < userDigit; i++)
                     {
+
                         Console.Write($"\nYour {i + 1} digit(s) is: ");
+
                         numInput = Console.ReadLine();
-                        ;
 
                         while (!double.TryParse(numInput, out cleanNum))
                         {
@@ -86,24 +153,41 @@
                         }
                         numInputs.Add(cleanNum);
                     }
+
+
                 }
 
                 try
-                {
-                    if (userDigit > 1)
-                    {
-                        result = Calculator.DoOperationWithTwoOrMany(numInputs, menu);
+                {                  
+                    if (numInputs.Count > 1)
+                    {                        
+                        result = cal.DoOperationWithTwoOrMany(numInputs, menu);
                     }
                     else
                     {
-                        result = Calculator.DoOperationWithOne(cleanNum, menu);
+                        result = cal.DoOperationWithOne(cleanNum, menu);
                     }
-                    
+
                     if (double.IsNaN(result))
                     {
                         Console.WriteLine("This operation will result in a mathematical error.\n");
                     }
-                    else Console.WriteLine("\nYour result: {0:0.##}\n", result);
+                    else
+                    {
+                        
+                        Console.WriteLine("\nYour result: {0:0.##}\n", result);
+
+                        cal.StoreResult(result);
+
+                        attempts += 1;
+
+                        if (cal.CountResultsList() > 0)
+                        {
+                            Console.WriteLine("Your list of past results: " + cal.ResultsList + "\n");
+                        }
+
+                        Console.WriteLine("Amount of times calculator was used: " + attempts.ToString());
+                    }
                 }
                 catch (Exception e)
                 {

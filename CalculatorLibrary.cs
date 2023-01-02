@@ -1,29 +1,39 @@
-﻿namespace CalculatorProgram
+﻿using System;
+
+namespace CalculatorProgram
 {
     class Calculator
     {
-        public static double DoOperationWithTwoOrMany(List<double> num, string op)
+        private List<double> _results;
+        public Calculator()
         {
-            double result = 0; 
+            _results = new List<Double>();
+        }
+        public double DoOperationWithTwoOrMany(List<double> num, string op)
+        {
+            double result = double.NaN; 
             // Use a switch statement to do the math.
             switch (op)
             {
                 case "a":
+                    result = 0;
                     foreach (double nub in num)
                     {
                         result += nub;
                     }
                     break;
                 case "s":
-                    foreach (double nub in num)
+                    result = num[0];
+                    for (int i = 1; i < num.Count; i++)
                     {
-                        result -= nub;
+                        result -= num[i];
                     }
                     break;
                 case "m":
-                    foreach (double nub in num)
+                    result = num[0];
+                    for (int i = 1; i < num.Count; i++)
                     {
-                        result *= nub;
+                        result *= num[i];
                     }
                     break;
                 case "p":
@@ -53,7 +63,7 @@
             }
             return result;
         }
-        public static double DoOperationWithOne(double num1, string op)
+        public double DoOperationWithOne(double num1, string op)
         {
             double result = 0;
             switch (op)
@@ -84,6 +94,46 @@
             }
             return result;
         }
+        public void StoreResult(double result)
+        {
+            _results.Add(result);
+        }
+        public int CountResultsList()
+        {
+             return _results.Count;
+        }
+        public void ClearResult()
+        {
+            _results.Clear();
+        }
+        public double GetResultFromList(string num)
+        {
+            var number = Convert.ToDouble(num);
+
+            foreach (var item in _results)
+            {
+                if ( number == item)
+                {
+                    return item;
+                }
+
+            }
+            return double.NaN;
+        }
+        public string ResultsList
+        {
+            get
+            {
+                string emptystring = "";
+                for(int i = 0; i < _results.Count; i++)
+                {
+                    emptystring += _results[i].ToString() + " ";
+                }             
+                    
+                return emptystring;
+            }
+        }
+
     }
 }
 
