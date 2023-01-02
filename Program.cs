@@ -45,45 +45,6 @@
                     Console.Write("Invalid input. Please try again:");
                     userInput = Console.ReadLine();
                 }
-
-                if (cal.CountResultsList() > 0)
-                {
-                    Console.WriteLine("Do you want to use number from past result to perform next calculation? ");
-                    Console.Write("The picked number will be counted as your first digit (y/n): ");
-
-                    userInput = Console.ReadLine();
-
-                    switch (userInput)
-                    {
-                        case "y":                           
-                            do
-                            {
-                                Console.Write("Pick your past result number from the list: ");
-
-                                numInput = Console.ReadLine();
-
-                                if (numInput != null)
-                                {
-                                    cleanNum = cal.GetResultFromList(numInput);
-
-                                    if (!double.IsNaN(cleanNum))
-                                    {
-                                        numInputs.Add(cleanNum);
-                                    }
-                                }                               
-
-                                
-                            } while (double.IsNaN(cleanNum));
-                            break;
-                        case "n":
-                            break;
-                        default:
-                            Console.Write("Invalid input please try again");
-                            userInput = Console.ReadLine();
-                            break;
-                    }
-                }             
-                    
                 if (userDigit > 1)
                 {
                     Console.WriteLine("\nChoose an option from the following list:");
