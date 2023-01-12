@@ -9,35 +9,58 @@ namespace CalculatorProgram
         {
             _results = new List<Double>();
         }
-        public double DoOperationWithTwoOrMany(List<double> num, string op)
+        public List<double> Results
+        { get { return _results; } }
+        public int CheckUserDigitInputINT(string? command)
         {
-            double result = double.NaN; 
-            // Use a switch statement to do the math.
+            int num;
+            while (!int.TryParse(command, out num))
+            {
+                Console.Write("Invalid input. Please try again: ");
+                command = Console.ReadLine();
+            }
+            return num;
+        }
+        public double CheckUserDigitInputDOUBLE(string? command)
+        {
+            double num;
+            while (!double.TryParse(command, out num))
+            {
+                Console.Write("Invalid input. Please try again: ");
+                command = Console.ReadLine();
+            }
+            return num;
+        }
+        public double DoOperationWithTwoOrMany(List<double> num)
+        {
+            double result = double.NaN;
+            string op = Console.ReadLine();
+
             switch (op)
             {
-                case "a":
+                case "1":
                     result = 0;
                     foreach (double nub in num)
                     {
                         result += nub;
                     }
                     break;
-                case "s":
+                case "2":
                     result = num[0];
                     for (int i = 1; i < num.Count; i++)
                     {
                         result -= num[i];
                     }
                     break;
-                case "m":
+                case "3":
                     result = num[0];
                     for (int i = 1; i < num.Count; i++)
                     {
                         result *= num[i];
                     }
                     break;
-                case "p":
-                    if ( num.Count == 2)
+                case "4":
+                    if (num.Count == 2)
                     {
                         result = Math.Pow(num[0], num[1]);
                     }
@@ -46,8 +69,7 @@ namespace CalculatorProgram
                         result = double.NaN;
                     }
                     break;
-                case "d":
-                    // Ask the user to enter a non-zero divisor.
+                case "5":
                     if (num[-1] != 0)
                     {
                         result = num[0];
@@ -57,39 +79,42 @@ namespace CalculatorProgram
                         }
                     }
                     break;
-                // Return text for an incorrect option entry.
                 default:
+                    Console.Write("Invalid input. ");
                     break;
             }
             return result;
         }
-        public double DoOperationWithOne(double num1, string op)
+        public double DoOperationWithOne(double num1)
         {
-            double result = 0;
+            double result = double.NaN;
+            string op = Console.ReadLine();
+
             switch (op)
             {
-                case "s":
+                case "1":
                     if (num1 >= 0)
                     {
                         result = Math.Sqrt(num1);
                     }
                     break;
-                case "p":
+                case "2":
                     if (num1 != 0)
                     {
                         result = num1 * num1;
                     }
                     break;
-                case "sin":
+                case "3":
                     result = Math.Sin(num1);
                     break;
-                case "cos":
+                case "4":
                     result = Math.Cos(num1);
                     break;
-                case "tan":
+                case "5":
                     result = Math.Tan(num1);
                     break;
                 default:
+                    Console.Write("Invalid input. ");
                     break;
             }
             return result;
@@ -100,7 +125,7 @@ namespace CalculatorProgram
         }
         public int CountResultsList()
         {
-             return _results.Count;
+            return _results.Count;
         }
         public void ClearResult()
         {
@@ -112,7 +137,7 @@ namespace CalculatorProgram
 
             foreach (var item in _results)
             {
-                if ( number == item)
+                if (number == item)
                 {
                     return item;
                 }
@@ -125,11 +150,11 @@ namespace CalculatorProgram
             get
             {
                 string emptystring = "";
-                for(int i = 0; i < _results.Count; i++)
+                for (int i = 0; i < _results.Count; i++)
                 {
                     emptystring += _results[i].ToString() + " ";
-                }             
-                    
+                }
+
                 return emptystring;
             }
         }
