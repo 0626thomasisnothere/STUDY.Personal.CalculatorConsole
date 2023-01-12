@@ -9,57 +9,34 @@ namespace CalculatorProgram
         {
             _results = new List<Double>();
         }
-        public List<double> Results
-        { get { return _results; } }
-        public int CheckUserDigitInputINT(string? command)
+        public double DoOperationWithTwoOrMany(List<double> num, string op)
         {
-            int num;
-            while (!int.TryParse(command, out num))
-            {
-                Console.Write("Invalid input. Please try again: ");
-                command = Console.ReadLine();
-            }
-            return num;
-        }
-        public double CheckUserDigitInputDOUBLE(string? command)
-        {
-            double num;
-            while (!double.TryParse(command, out num))
-            {
-                Console.Write("Invalid input. Please try again: ");
-                command = Console.ReadLine();
-            }
-            return num;
-        }
-        public double DoOperationWithTwoOrMany(List<double> num)
-        {
-            double result = double.NaN;            
-            string op = Console.ReadLine();
-
+            double result = double.NaN; 
+            // Use a switch statement to do the math.
             switch (op)
             {
-                case "1":
+                case "a":
                     result = 0;
                     foreach (double nub in num)
                     {
                         result += nub;
                     }
                     break;
-                case "2":
+                case "s":
                     result = num[0];
                     for (int i = 1; i < num.Count; i++)
                     {
                         result -= num[i];
                     }
                     break;
-                case "3":
+                case "m":
                     result = num[0];
                     for (int i = 1; i < num.Count; i++)
                     {
                         result *= num[i];
                     }
                     break;
-                case "4":
+                case "p":
                     if ( num.Count == 2)
                     {
                         result = Math.Pow(num[0], num[1]);
@@ -69,7 +46,8 @@ namespace CalculatorProgram
                         result = double.NaN;
                     }
                     break;
-                case "5":
+                case "d":
+                    // Ask the user to enter a non-zero divisor.
                     if (num[-1] != 0)
                     {
                         result = num[0];
@@ -79,42 +57,39 @@ namespace CalculatorProgram
                         }
                     }
                     break;
+                // Return text for an incorrect option entry.
                 default:
-                    Console.Write("Invalid input. ");
                     break;
             }
             return result;
         }
-        public double DoOperationWithOne(double num1)
+        public double DoOperationWithOne(double num1, string op)
         {
-            double result = double.NaN;
-            string op = Console.ReadLine();
-
+            double result = 0;
             switch (op)
             {
-                case "1":
+                case "s":
                     if (num1 >= 0)
                     {
                         result = Math.Sqrt(num1);
                     }
                     break;
-                case "2":
+                case "p":
                     if (num1 != 0)
                     {
                         result = num1 * num1;
                     }
                     break;
-                case "3":
+                case "sin":
                     result = Math.Sin(num1);
                     break;
-                case "4":
+                case "cos":
                     result = Math.Cos(num1);
                     break;
-                case "5":
+                case "tan":
                     result = Math.Tan(num1);
                     break;
                 default:
-                    Console.Write("Invalid input. ");
                     break;
             }
             return result;

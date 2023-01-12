@@ -4,535 +4,47 @@
     {
         static void Main(string[] args)
         {
-            Calculator calculator= new();
+            var cal = new Calculator();
             bool endApp = false;
             int attempts = 0;
-            
-            
+            // Display title as the C# console calculator app.
+            Console.WriteLine("Console Calculator in C#\r");
+            Console.WriteLine("------------------------\n");
+
             while (!endApp)
             {
-                int userDigit;
-                double numInput = 0;
-                double result = double.NaN;
-                string? userCommand;
-                bool loopList = false;
-                List<double> userListDigit = new();
+                // Declare variables
+                List<double> numInputs = new List<double> { };                
+                string numInput = "";
+                double result = 0;                
+                int userDigit;                
+                string userInput;
+                double cleanNum = 0;
 
-                Console.Clear();
-                Console.WriteLine("------------------------\n");
-                Console.WriteLine("Console Calculator in C#\r");
-                Console.WriteLine("\n------------------------\n");
-
-                while(!loopList && calculator.CountResultsList() > 0)
+                // Ask the user to choose an operator.
+                if (cal.CountResultsList() > 0)
                 {
-                    Console.WriteLine($"\nYour list of past results: [ {calculator.ResultsList}]");
+                    Console.WriteLine("Your list of past results: " + cal.ResultsList);
 
                     Console.Write("Do you want to clear it? (y/n): ");
 
-                    userCommand = Console.ReadLine();
+                    userInput = Console.ReadLine();
 
-                    switch (userCommand)
+                    if (userInput == "y")
                     {
-                        case "y":
-                            calculator.ClearResult();
-                            loopList= true;
-                            break;
-                        case "n":
-                            Console.Write("\nDo you want to use previous result from the list\n" +
-                                "It will be your first digit (y/n): ");
-
-                            userCommand = Console.ReadLine();
-
-                            switch (userCommand)
-                            {
-                                case "y":
-                                    userListDigit.Add(calculator.Results[0]);
-                                    loopList= true;
-                                    break;
-                                case "n":
-                                    loopList= true;
-                                    break;
-                                default:
-                                    Console.Write("Invalid input. Please try again.\n ");
-                                    break;
-                            }
-                            break;
-                        default:
-                            Console.Write("Invalid input. Please try again.\n");
-                            break;
-                    }                    
-                                numInput = Console.ReadLine();
-
-                                if (numInput != null)
-                                {
-                                    cleanNum = cal.GetResultFromList(numInput);
-
-                                    if (!double.IsNaN(cleanNum))
-                                    {
-                                        numInputs.Add(cleanNum);
-                                    }
-                                }                               
-
-                                
-                            } while (double.IsNaN(cleanNum));
-                            break;
-                        case "n":
-                            break;
-                        default:
-                            Console.Write("Invalid input please try again");
-                            userInput = Console.ReadLine();
-                            break;
+                        cal.ClearResult();
                     }
-                }             
-                    
-                if (userDigit > 1)
+                }
+
+                Console.Write("How many digits you want to enter?: ");                
+
+                userInput = Console.ReadLine();
+
+                while (!int.TryParse(userInput, out userDigit))
                 {
-                    Console.WriteLine("\nChoose an option from the following list:");
-                    Console.WriteLine("\ta - Add");
-                    Console.WriteLine("\ts - Subtract");
-                    Console.WriteLine("\tm - Multiply");
-                    Console.WriteLine("\tp - To the power of (only for 2 digits)");
-                    Console.WriteLine("\td - Divide");
-                                numInput = Console.ReadLine();
-
-                                if (numInput != null)
-                                {
-                                    cleanNum = cal.GetResultFromList(numInput);
-
-                                    if (!double.IsNaN(cleanNum))
-                                    {
-                                        numInputs.Add(cleanNum);
-                                    }
-                                }                               
-
-                                
-                            } while (double.IsNaN(cleanNum));
-                            break;
-                        case "n":
-                            break;
-                        default:
-                            Console.Write("Invalid input please try again");
-                            userInput = Console.ReadLine();
-                            break;
-                    }
-                }             
-                    
-                if (userDigit > 1)
-                {
-                    Console.WriteLine("\nChoose an option from the following list:");
-                    Console.WriteLine("\ta - Add");
-                    Console.WriteLine("\ts - Subtract");
-                    Console.WriteLine("\tm - Multiply");
-                    Console.WriteLine("\tp - To the power of (only for 2 digits)");
-                    Console.WriteLine("\td - Divide");
-                                numInput = Console.ReadLine();
-
-                                if (numInput != null)
-                                {
-                                    cleanNum = cal.GetResultFromList(numInput);
-
-                                    if (!double.IsNaN(cleanNum))
-                                    {
-                                        numInputs.Add(cleanNum);
-                                    }
-                                }                               
-
-                                
-                            } while (double.IsNaN(cleanNum));
-                            break;
-                        case "n":
-                            break;
-                        default:
-                            Console.Write("Invalid input please try again");
-                            userInput = Console.ReadLine();
-                            break;
-                    }
-                }             
-                    
-                if (userDigit > 1)
-                {
-                    Console.WriteLine("\nChoose an option from the following list:");
-                    Console.WriteLine("\ta - Add");
-                    Console.WriteLine("\ts - Subtract");
-                    Console.WriteLine("\tm - Multiply");
-                    Console.WriteLine("\tp - To the power of (only for 2 digits)");
-                    Console.WriteLine("\td - Divide");
-                                numInput = Console.ReadLine();
-
-                                if (numInput != null)
-                                {
-                                    cleanNum = cal.GetResultFromList(numInput);
-
-                                    if (!double.IsNaN(cleanNum))
-                                    {
-                                        numInputs.Add(cleanNum);
-                                    }
-                                }                               
-
-                                
-                            } while (double.IsNaN(cleanNum));
-                            break;
-                        case "n":
-                            break;
-                        default:
-                            Console.Write("Invalid input please try again");
-                            userInput = Console.ReadLine();
-                            break;
-                    }
-                }             
-                    
-                if (userDigit > 1)
-                {
-                    Console.WriteLine("\nChoose an option from the following list:");
-                    Console.WriteLine("\ta - Add");
-                    Console.WriteLine("\ts - Subtract");
-                    Console.WriteLine("\tm - Multiply");
-                    Console.WriteLine("\tp - To the power of (only for 2 digits)");
-                    Console.WriteLine("\td - Divide");
-                                numInput = Console.ReadLine();
-
-                                if (numInput != null)
-                                {
-                                    cleanNum = cal.GetResultFromList(numInput);
-
-                                    if (!double.IsNaN(cleanNum))
-                                    {
-                                        numInputs.Add(cleanNum);
-                                    }
-                                }                               
-
-                                
-                            } while (double.IsNaN(cleanNum));
-                            break;
-                        case "n":
-                            break;
-                        default:
-                            Console.Write("Invalid input please try again");
-                            userInput = Console.ReadLine();
-                            break;
-                    }
-                }             
-                    
-                if (userDigit > 1)
-                {
-                    Console.WriteLine("\nChoose an option from the following list:");
-                    Console.WriteLine("\ta - Add");
-                    Console.WriteLine("\ts - Subtract");
-                    Console.WriteLine("\tm - Multiply");
-                    Console.WriteLine("\tp - To the power of (only for 2 digits)");
-                    Console.WriteLine("\td - Divide");
-                                numInput = Console.ReadLine();
-
-                                if (numInput != null)
-                                {
-                                    cleanNum = cal.GetResultFromList(numInput);
-
-                                    if (!double.IsNaN(cleanNum))
-                                    {
-                                        numInputs.Add(cleanNum);
-                                    }
-                                }                               
-
-                                
-                            } while (double.IsNaN(cleanNum));
-                            break;
-                        case "n":
-                            break;
-                        default:
-                            Console.Write("Invalid input please try again");
-                            userInput = Console.ReadLine();
-                            break;
-                    }
-                }             
-                    
-                if (userDigit > 1)
-                {
-                    Console.WriteLine("\nChoose an option from the following list:");
-                    Console.WriteLine("\ta - Add");
-                    Console.WriteLine("\ts - Subtract");
-                    Console.WriteLine("\tm - Multiply");
-                    Console.WriteLine("\tp - To the power of (only for 2 digits)");
-                    Console.WriteLine("\td - Divide");
-                                numInput = Console.ReadLine();
-
-                                if (numInput != null)
-                                {
-                                    cleanNum = cal.GetResultFromList(numInput);
-
-                                    if (!double.IsNaN(cleanNum))
-                                    {
-                                        numInputs.Add(cleanNum);
-                                    }
-                                }                               
-
-                                
-                            } while (double.IsNaN(cleanNum));
-                            break;
-                        case "n":
-                            break;
-                        default:
-                            Console.Write("Invalid input please try again");
-                            userInput = Console.ReadLine();
-                            break;
-                    }
-                }             
-                    
-                if (userDigit > 1)
-                {
-                    Console.WriteLine("\nChoose an option from the following list:");
-                    Console.WriteLine("\ta - Add");
-                    Console.WriteLine("\ts - Subtract");
-                    Console.WriteLine("\tm - Multiply");
-                    Console.WriteLine("\tp - To the power of (only for 2 digits)");
-                    Console.WriteLine("\td - Divide");
-                                numInput = Console.ReadLine();
-
-                                if (numInput != null)
-                                {
-                                    cleanNum = cal.GetResultFromList(numInput);
-
-                                    if (!double.IsNaN(cleanNum))
-                                    {
-                                        numInputs.Add(cleanNum);
-                                    }
-                                }                               
-
-                                
-                            } while (double.IsNaN(cleanNum));
-                            break;
-                        case "n":
-                            break;
-                        default:
-                            Console.Write("Invalid input please try again");
-                            userInput = Console.ReadLine();
-                            break;
-                    }
-                }             
-                    
-                if (userDigit > 1)
-                {
-                    Console.WriteLine("\nChoose an option from the following list:");
-                    Console.WriteLine("\ta - Add");
-                    Console.WriteLine("\ts - Subtract");
-                    Console.WriteLine("\tm - Multiply");
-                    Console.WriteLine("\tp - To the power of (only for 2 digits)");
-                    Console.WriteLine("\td - Divide");
-                                numInput = Console.ReadLine();
-
-                                if (numInput != null)
-                                {
-                                    cleanNum = cal.GetResultFromList(numInput);
-
-                                    if (!double.IsNaN(cleanNum))
-                                    {
-                                        numInputs.Add(cleanNum);
-                                    }
-                                }                               
-
-                                
-                            } while (double.IsNaN(cleanNum));
-                            break;
-                        case "n":
-                            break;
-                        default:
-                            Console.Write("Invalid input please try again");
-                            userInput = Console.ReadLine();
-                            break;
-                    }
-                }             
-                    
-                if (userDigit > 1)
-                {
-                    Console.WriteLine("\nChoose an option from the following list:");
-                    Console.WriteLine("\ta - Add");
-                    Console.WriteLine("\ts - Subtract");
-                    Console.WriteLine("\tm - Multiply");
-                    Console.WriteLine("\tp - To the power of (only for 2 digits)");
-                    Console.WriteLine("\td - Divide");
-                                numInput = Console.ReadLine();
-
-                                if (numInput != null)
-                                {
-                                    cleanNum = cal.GetResultFromList(numInput);
-
-                                    if (!double.IsNaN(cleanNum))
-                                    {
-                                        numInputs.Add(cleanNum);
-                                    }
-                                }                               
-
-                                
-                            } while (double.IsNaN(cleanNum));
-                            break;
-                        case "n":
-                            break;
-                        default:
-                            Console.Write("Invalid input please try again");
-                            userInput = Console.ReadLine();
-                            break;
-                    }
-                }             
-                    
-                if (userDigit > 1)
-                {
-                    Console.WriteLine("\nChoose an option from the following list:");
-                    Console.WriteLine("\ta - Add");
-                    Console.WriteLine("\ts - Subtract");
-                    Console.WriteLine("\tm - Multiply");
-                    Console.WriteLine("\tp - To the power of (only for 2 digits)");
-                    Console.WriteLine("\td - Divide");
-                                numInput = Console.ReadLine();
-
-                                if (numInput != null)
-                                {
-                                    cleanNum = cal.GetResultFromList(numInput);
-
-                                    if (!double.IsNaN(cleanNum))
-                                    {
-                                        numInputs.Add(cleanNum);
-                                    }
-                                }                               
-
-                                
-                            } while (double.IsNaN(cleanNum));
-                            break;
-                        case "n":
-                            break;
-                        default:
-                            Console.Write("Invalid input please try again");
-                            userInput = Console.ReadLine();
-                            break;
-                    }
-                }             
-                    
-                if (userDigit > 1)
-                {
-                    Console.WriteLine("\nChoose an option from the following list:");
-                    Console.WriteLine("\ta - Add");
-                    Console.WriteLine("\ts - Subtract");
-                    Console.WriteLine("\tm - Multiply");
-                    Console.WriteLine("\tp - To the power of (only for 2 digits)");
-                    Console.WriteLine("\td - Divide");
-                                numInput = Console.ReadLine();
-
-                                if (numInput != null)
-                                {
-                                    cleanNum = cal.GetResultFromList(numInput);
-
-                                    if (!double.IsNaN(cleanNum))
-                                    {
-                                        numInputs.Add(cleanNum);
-                                    }
-                                }                               
-
-                                
-                            } while (double.IsNaN(cleanNum));
-                            break;
-                        case "n":
-                            break;
-                        default:
-                            Console.Write("Invalid input please try again");
-                            userInput = Console.ReadLine();
-                            break;
-                    }
-                }             
-                    
-                if (userDigit > 1)
-                {
-                    Console.WriteLine("\nChoose an option from the following list:");
-                    Console.WriteLine("\ta - Add");
-                    Console.WriteLine("\ts - Subtract");
-                    Console.WriteLine("\tm - Multiply");
-                    Console.WriteLine("\tp - To the power of (only for 2 digits)");
-                    Console.WriteLine("\td - Divide");
-                                numInput = Console.ReadLine();
-
-                                if (numInput != null)
-                                {
-                                    cleanNum = cal.GetResultFromList(numInput);
-
-                                    if (!double.IsNaN(cleanNum))
-                                    {
-                                        numInputs.Add(cleanNum);
-                                    }
-                                }                               
-
-                                
-                            } while (double.IsNaN(cleanNum));
-                            break;
-                        case "n":
-                            break;
-                        default:
-                            Console.Write("Invalid input please try again");
-                            userInput = Console.ReadLine();
-                            break;
-                    }
-                }             
-                    
-                if (userDigit > 1)
-                {
-                    Console.WriteLine("\nChoose an option from the following list:");
-                    Console.WriteLine("\ta - Add");
-                    Console.WriteLine("\ts - Subtract");
-                    Console.WriteLine("\tm - Multiply");
-                    Console.WriteLine("\tp - To the power of (only for 2 digits)");
-                    Console.WriteLine("\td - Divide");
-                                numInput = Console.ReadLine();
-
-                                if (numInput != null)
-                                {
-                                    cleanNum = cal.GetResultFromList(numInput);
-
-                                    if (!double.IsNaN(cleanNum))
-                                    {
-                                        numInputs.Add(cleanNum);
-                                    }
-                                }                               
-
-                                
-                            } while (double.IsNaN(cleanNum));
-                            break;
-                        case "n":
-                            break;
-                        default:
-                            Console.Write("Invalid input please try again");
-                            userInput = Console.ReadLine();
-                            break;
-                    }
-                }             
-                    
-                if (userDigit > 1)
-                {
-                    Console.WriteLine("\nChoose an option from the following list:");
-                    Console.WriteLine("\ta - Add");
-                    Console.WriteLine("\ts - Subtract");
-                    Console.WriteLine("\tm - Multiply");
-                    Console.WriteLine("\tp - To the power of (only for 2 digits)");
-                    Console.WriteLine("\td - Divide");
-                                numInput = Console.ReadLine();
-
-                                if (numInput != null)
-                                {
-                                    cleanNum = cal.GetResultFromList(numInput);
-
-                                    if (!double.IsNaN(cleanNum))
-                                    {
-                                        numInputs.Add(cleanNum);
-                                    }
-                                }                               
-
-                                
-                            } while (double.IsNaN(cleanNum));
-                            break;
-                        case "n":
-                            break;
-                        default:
-                            Console.Write("Invalid input please try again");
-                            userInput = Console.ReadLine();
-                            break;
-                    }
-                }             
-                    
+                    Console.Write("Invalid input. Please try again:");
+                    userInput = Console.ReadLine();
+                }
                 if (userDigit > 1)
                 {
                     Console.WriteLine("\nChoose an option from the following list:");
@@ -542,87 +54,114 @@
                     Console.WriteLine("\tp - To the power of (only for 2 digits)");
                     Console.WriteLine("\td - Divide");
                 }
-
-                Console.Write("\nHow many digit do you want to enter: ");
-
-                userCommand = Console.ReadLine();
-
-                userDigit = calculator.CheckUserDigitInputINT(userCommand);
-
-                while(userDigit <= 0 ) 
+                else
                 {
-                    Console.Write("\nCannot be a negative number or ZERO!.");
-                    userCommand = Console.ReadLine();
-                    userDigit = calculator.CheckUserDigitInputINT(userCommand);
-
-                }
-                if (userDigit == 1 && userListDigit.Count() < 1)
-                {
-                    Console.Write("\nYour 1 digit: ");
-                    userCommand = Console.ReadLine();
-                    numInput = calculator.CheckUserDigitInputDOUBLE(userCommand);                    
-                    Console.WriteLine("------------------------");
                     Console.WriteLine("Choose an option from the following list:");
-                    Console.WriteLine("\t1 - Square root");
-                    Console.WriteLine("\t2 - Power of two");
-                    Console.WriteLine("\t3 - Trigonometry Sin()");
-                    Console.WriteLine("\t4 - Trigonometry Cos()");
-                    Console.WriteLine("\t5 - Trigonometry Tan()");
+                    Console.WriteLine("\ts - Square root");
+                    Console.WriteLine("\tp - Power of two");
+                    Console.WriteLine("\tsin - Trigonometry Sin()");
+                    Console.WriteLine("\tcos - Trigonometry Cos()");
+                    Console.WriteLine("\ttan - Trigonometry Tan()");
+                }
+                Console.Write("Your option? ");
+
+
+                string menu = Console.ReadLine();
+
+                while (menu == null || userDigit > 2 && menu == "p")
+                {
+                    Console.Write("Invalid option picked. Please try again:");
+                    menu = Console.ReadLine();
+                }
+
+                if (numInputs.Count > 0)
+                {
+                    userDigit -= 1;
+
+                }
+                if (userDigit == 1)
+                {
+                    // Ask the user to type the first number.
+                    Console.Write("Type a number, and then press Enter: ");
+
+                    numInput = Console.ReadLine();
+
+
+                    while (!double.TryParse(numInput, out cleanNum))
+                    {
+                        Console.Write("This is not valid input. Please enter an integer value: ");
+                        numInput = Console.ReadLine();
+                    }
+
+                    if (numInputs.Count > 0)
+                    {
+                        numInputs.Add(cleanNum);
+                    }                    
                 }
                 else
                 {
                     for (int i = 0; i < userDigit; i++)
                     {
-                        if (userListDigit.Count() > 0) i = userListDigit.Count();
-                        Console.Write($"\nYour {i + 1} digit: ");
-                        userCommand = Console.ReadLine();
-                        numInput = calculator.CheckUserDigitInputDOUBLE(userCommand);
-                        userListDigit.Add(numInput);
+
+                        Console.Write($"\nYour {i + 1} digit(s) is: ");
+
+                        numInput = Console.ReadLine();
+
+                        while (!double.TryParse(numInput, out cleanNum))
+                        {
+                            Console.Write("This is not valid input. Please enter an integer value: ");
+                            numInput = Console.ReadLine();
+                        }
+                        numInputs.Add(cleanNum);
                     }
-                    Console.WriteLine("------------------------");
-                    Console.WriteLine("Choose an option from the following list:");
-                    Console.WriteLine("\t1 - Sum");
-                    Console.WriteLine("\t2 - Difference");
-                    Console.WriteLine("\t3 - Product");
-                    Console.WriteLine("\t4 - To the power of (only for 2 digits)");
-                    Console.WriteLine("\t5 - Quotient");
+
+
                 }
-                Console.Write("Your option: ");
+
                 try
-                {
-                    //while (double.IsNaN(result))
-                    if (userListDigit.Count > 1)
-                    {
-                        result = calculator.DoOperationWithTwoOrMany(userListDigit);
+                {                  
+                    if (numInputs.Count > 1)
+                    {                        
+                        result = cal.DoOperationWithTwoOrMany(numInputs, menu);
                     }
                     else
                     {
-                        result = calculator.DoOperationWithOne(numInput);
+                        result = cal.DoOperationWithOne(cleanNum, menu);
                     }
+
                     if (double.IsNaN(result))
                     {
-                        Console.WriteLine("This operation will result in a mathematical error. TERMINATED\n");
+                        Console.WriteLine("This operation will result in a mathematical error.\n");
                     }
                     else
                     {
-                        Console.WriteLine("------------------------\n");
-                        Console.WriteLine("Your result: {0:0.##}\n", result);
+                        
+                        Console.WriteLine("\nYour result: {0:0.##}\n", result);
 
-                        calculator.StoreResult(result);
+                        cal.StoreResult(result);
+
                         attempts += 1;
 
-                        if (calculator.CountResultsList() > 0)
+                        if (cal.CountResultsList() > 0)
                         {
-                            Console.WriteLine($"\nYour list of past results: [ {calculator.ResultsList}]");
+                            Console.WriteLine("Your list of past results: " + cal.ResultsList + "\n");
                         }
-                        Console.WriteLine($"Amount of times calculator was used: {attempts.ToString()}.\n");
+
+                        Console.WriteLine("Amount of times calculator was used: " + attempts.ToString());
                     }
                 }
-                catch(Exception ex) { Console.WriteLine(ex.ToString()); }
-                Console.WriteLine("------------------------");
-                Console.Write("Press '0' and Enter to close the app, or press Enter continue. . .");
-                if (Console.ReadLine() == "0") endApp = true;
-                Console.WriteLine("\n");
+                catch (Exception e)
+                {
+                    Console.WriteLine("Oh no! An exception occurred trying to do the math.\n - Details: " + e.Message);
+                }
+
+                Console.WriteLine("------------------------\n");
+
+                // Wait for the user to respond before closing.
+                Console.Write("Press 'n' and Enter to close the app, or press any other key and Enter to continue: ");
+                if (Console.ReadLine() == "n") endApp = true;
+
+                Console.WriteLine("\n"); // Friendly linespacing.
             }
             return;
         }
